@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Wardrobe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #6c63ff, #8f94fb);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    color: white;
+    padding: 25px;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+input, select {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 12px;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #574fd6;
+}
+
+.suggestion-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f1f3ff;
+    border-left: 5px solid #6c63ff;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>👗 Smart Wardrobe</h1>
+    <p>AI Outfit Suggestion</p>
+</header>
+
+<div class="container">
+
+    <form onsubmit="getSuggestion(event)">
+        <input type="text" id="cloth" placeholder="Enter Cloth Name (Saree, Shirt...)" required>
+
+        <select id="type">
+            <option value="casual">Casual</option>
+            <option value="formal">Formal</option>
+            <option value="party">Party</option>
+        </select>
+
+        <select id="weather">
+            <option value="hot">Hot</option>
+            <option value="cold">Cold</option>
+            <option value="rainy">Rainy</option>
+        </select>
+
+        <button type="submit">Get Suggestion</button>
+    </form>
+
+    <div class="suggestion-box" id="result">
+        Your outfit suggestion will appear here 👗
+    </div>
+
+</div>
+
+<script>
+function getSuggestion(event) {
+    event.preventDefault();
+
+    let cloth = document.getElementById("cloth").value.toLowerCase();
+    let weather = document.getElementById("weather").value;
+
+    let suggestion = "";
+
+    // Smart Matching Logic
+    if (cloth.includes("saree")) {
+        suggestion = "👗 Saree + Matching Blouse + Accessories";
+    }
+    else if (cloth.includes("shirt")) {
+        suggestion = "👕 Shirt + 👖 Formal Pants";
+    }
+    else if (cloth.includes("tshirt") || cloth.includes("t-shirt")) {
+        suggestion = "👕 T-shirt + 👖 Jeans";
+    }
+    else if (cloth.includes("kurti")) {
+        suggestion = "👚 Kurti + Leggings";
+    }
+    else {
+        suggestion = "👕 Casual Wear + Comfortable Bottom";
+    }
+
+    // Weather Adjustment
+    if (weather === "cold") {
+        suggestion += " + 🧥 Jacket";
+    }
+    else if (weather === "rainy") {
+        suggestion += " + ☔ Waterproof Wear";
+    }
+
+    document.getElementById("result").innerText = suggestion;
+}
+</script>
+
+</body>
+</html>
